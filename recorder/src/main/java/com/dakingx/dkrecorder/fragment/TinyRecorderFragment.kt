@@ -61,6 +61,7 @@ class TinyRecorderFragment : RecorderFragment() {
                 stopRecord()
             } else {
                 stopPlay()
+                enterRecorder()
             }
         }
     }
