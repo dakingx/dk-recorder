@@ -1,0 +1,4 @@
+<resources>
+    <string name="tip_lack_required_permissions">缺少必要的应用权限</string>
+    <string name="tip_gen_tmp_file_fail">创建临时文件失败</string>
+</resources>

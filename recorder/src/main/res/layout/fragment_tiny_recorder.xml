@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorSurface">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/timeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:textColor="@color/colorOnSurface"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="00:00" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/recordIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/timeTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/timeTv"
+        app:srcCompat="@drawable/ic_microphone_24dp"
+        app:tint="@color/colorOnSurface" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/playIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/timeTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/timeTv"
+        app:srcCompat="@drawable/ic_play_24dp"
+        app:tint="@color/colorOnSurface" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/stopIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/timeTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/timeTv"
+        app:srcCompat="@drawable/ic_stop_24dp"
+        app:tint="@color/colorOnSurface" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/deleteIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/timeTv"
+        app:layout_constraintEnd_toStartOf="@id/playIv"
+        app:layout_constraintTop_toTopOf="@id/timeTv"
+        app:srcCompat="@drawable/ic_delete_24dp"
+        app:tint="@color/colorOnSurface" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
