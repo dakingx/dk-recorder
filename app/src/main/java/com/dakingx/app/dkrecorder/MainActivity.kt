@@ -1,10 +1,13 @@
 package com.dakingx.app.dkrecorder
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.dakingx.app.dkrecorder.config.getFileProviderAuthority
 import com.dakingx.dkrecorder.fragment.RecorderFragment
+import com.dakingx.dkrecorder.fragment.RecorderListener
 import com.dakingx.dkrecorder.fragment.TinyRecorderFragment
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -27,31 +30,45 @@ class MainActivity : AppCompatActivity() {
 
     private fun addRecorderFragment() {
         Dexter.withContext(this)
-            .withPermissions(*RecorderFragment.REQUIRED_PERMISSIONS.toTypedArray())
-            .withListener(object :
-                MultiplePermissionsListener {
-                override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-                    if (report.areAllPermissionsGranted()) {
-                        runOnUiThread {
-                            val fragment =
-                                TinyRecorderFragment.newInstance(getFileProviderAuthority(), 8)
-                            supportFragmentManager.beginTransaction()
-                                .add(R.id.container_recorder, fragment)
-                                .commitNow()
-                        }
-                    } else {
-                        runOnUiThread {
-                            toast(R.string.tip_lack_required_permissions)
+                .withPermissions(*RecorderFragment.REQUIRED_PERMISSIONS.toTypedArray())
+                .withListener(object :
+                        MultiplePermissionsListener {
+                    override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                        if (report.areAllPermissionsGranted()) {
+                            runOnUiThread {
+                                val fragment =
+                                        TinyRecorderFragment.newInstance(getFileProviderAuthority(), 8)
+                                supportFragmentManager.beginTransaction()
+                                        .add(R.id.container_recorder, fragment)
+                                        .commitNow()
+
+                                fragment.recorderListener = object : RecorderListener {
+                                    override fun onRecordFinished(uri: Uri) {
+                                        Log.d("TinyRecorderFragment", "onRecordFinished(), uri: $uri")
+                                    }
+
+                                    override fun onPlayFinished() {
+                                        Log.d("TinyRecorderFragment", "onPlayFinished()")
+                                    }
+
+                                    override fun onRecordDeleted(uri: Uri) {
+                                        Log.d("TinyRecorderFragment", "onRecordDeleted(), uri: $uri")
+                                    }
+                                }
+                            }
+                        } else {
+                            runOnUiThread {
+                                toast(R.string.tip_lack_required_permissions)
+                            }
                         }
                     }
-                }
 
-                override fun onPermissionRationaleShouldBeShown(
-                    list: MutableList<PermissionRequest>,
-                    token: PermissionToken
-                ) {
-                    token.continuePermissionRequest()
-                }
-            }).check()
+                    override fun onPermissionRationaleShouldBeShown(
+                            list: MutableList<PermissionRequest>,
+                            token: PermissionToken
+                    ) {
+                        token.continuePermissionRequest()
+                    }
+                }).check()
     }
 }

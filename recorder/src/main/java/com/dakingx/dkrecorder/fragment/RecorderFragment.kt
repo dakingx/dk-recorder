@@ -20,6 +20,8 @@ interface RecorderListener {
     fun onRecordFinished(uri: Uri)
 
     fun onPlayFinished()
+
+    fun onRecordDeleted(uri: Uri)
 }
 
 open class RecorderFragment : BaseFragment() {
@@ -141,6 +143,18 @@ open class RecorderFragment : BaseFragment() {
             it.release()
         }
         mediaPlayer = null
+    }
+
+    fun deleteRecord(): Boolean {
+        val uri = audioUri
+        return if (uri != null) {
+            audioUri = null
+            recorderListener?.onRecordDeleted(uri)
+
+            true
+        } else {
+            false
+        }
     }
 
     fun startRecord(errorTip: Boolean = true): Boolean {
